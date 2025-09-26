@@ -22,6 +22,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    Jost: require("../assets/fonts/Jost-Medium.ttf"),
   });
 
   if (!loaded) {
