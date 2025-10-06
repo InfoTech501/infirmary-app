@@ -13,6 +13,10 @@ type ButtonProps = {
   loading?: boolean;
   disabled?: boolean;
   style?: ViewStyle;
+  backgroundColor?: string;
+  textColor?: string;
+  borderColor?: string;
+  borderWidth?: number;
 };
 
 export const Button = ({
@@ -21,18 +25,30 @@ export const Button = ({
   loading = false,
   disabled = false,
   style,
+  backgroundColor = "#066C3D",
+  textColor = "#fff",
+  borderColor,
+  borderWidth = 0,
 }: ButtonProps) => {
   return (
     <TouchableOpacity
-      style={[styles.button, style, disabled && styles.disabled]}
+      style={[
+        styles.button,
+        {
+          backgroundColor: disabled ? "#999" : backgroundColor,
+          borderColor: borderColor,
+          borderWidth: borderWidth,
+        },
+        style,
+      ]}
       onPress={onPress}
       activeOpacity={0.8}
       disabled={disabled || loading}
     >
       {loading ? (
-        <ActivityIndicator color="#fff" />
+        <ActivityIndicator color={textColor} />
       ) : (
-        <ThemedText type="default" colorVariant="white">
+        <ThemedText type="default" style={{ color: textColor }}>
           {title}
         </ThemedText>
       )}
@@ -42,14 +58,10 @@ export const Button = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#066C3D",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 8,
     alignItems: "center",
     width: "100%",
-  },
-  disabled: {
-    backgroundColor: "#999",
   },
 });

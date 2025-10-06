@@ -50,14 +50,4 @@ const styles = StyleSheet.create({
     top: 12,
     right: 12,
   },
-  title: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 8,
-  },
 });
