@@ -5,7 +5,7 @@ import React from "react";
 export default function QRParentsPortalScreen() {
   return (
     <ScreenWrapper>
-      <Header title="Parent's Portal QR Code" />
+      <Header title="PARENT'S PORTAL" />
     </ScreenWrapper>
   );
 }

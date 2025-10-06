@@ -5,7 +5,7 @@ import React from "react";
 export default function Notifications() {
   return (
     <ScreenWrapper>
-      <Header title="Notifications" />
+      <Header title="NOTIFICATIONS" />
     </ScreenWrapper>
   );
 }

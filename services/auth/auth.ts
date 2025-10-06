@@ -38,3 +38,12 @@ export async function login(
     return { success: false, message: "Network error. Please try again." };
   }
 }
+
+export async function logout(): Promise<void> {
+  try {
+    await AsyncStorage.removeItem("authToken");
+    console.log("Logout successful");
+  } catch (error) {
+    console.error("Error during logout:", error);
+  }
+}
