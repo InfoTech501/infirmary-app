@@ -14,7 +14,7 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     const result = await login(username, password);
     if (result.success) {
-      router.replace("/(tabs)");
+      router.replace("/(tabs)/HomepageScreen");
     } else {
       Alert.alert("Login failed", result.message || "Invalid credentials");
     }
