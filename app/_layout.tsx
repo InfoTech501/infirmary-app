@@ -1,39 +1,41 @@
 import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { Slot } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import "react-native-reanimated";
+    DarkTheme,
+    DefaultTheme,
+    ThemeProvider,
+} from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import { Slot } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import 'react-native-reanimated';
 
-import { useColorScheme } from "@/hooks/useColorScheme";
+import { useColorScheme } from '@/hooks/useColorScheme';
 
 export const unstable_settings = {
-  initialRouteName: "index",
+    initialRouteName: 'index',
 };
 
 export const options = {
-  headerShown: false,
+    headerShown: false,
 };
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    Jost: require("../assets/fonts/Jost-Medium.ttf"),
-  });
+    const colorScheme = useColorScheme();
+    const [loaded] = useFonts({
+        SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+        Jost: require('../assets/fonts/Jost-Medium.ttf'),
+    });
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
+    if (!loaded) {
+        // Async font loading only occurs in development.
+        return null;
+    }
 
-  return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Slot />
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider
+            value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+        >
+            <Slot />
+            <StatusBar style="auto" />
+        </ThemeProvider>
+    );
 }

@@ -1,63 +1,63 @@
-import { StyleSheet, Text, TextProps } from "react-native";
+import { StyleSheet, Text, TextProps } from 'react-native';
 
 export type ThemedTextProps = TextProps & {
-  type?:
-    | "default"
-    | "title"
-    | "defaultSemiBold"
-    | "subtitle"
-    | "link"
-    | "paragraph";
-  colorVariant?: "black" | "white";
+    type?:
+        | 'default'
+        | 'title'
+        | 'defaultSemiBold'
+        | 'subtitle'
+        | 'link'
+        | 'paragraph';
+    colorVariant?: 'black' | 'white';
 };
 
 export function ThemedText({
-  style,
-  type = "default",
-  colorVariant = "black",
-  ...rest
+    style,
+    type = 'default',
+    colorVariant = 'black',
+    ...rest
 }: ThemedTextProps) {
-  const textColor = colorVariant === "white" ? "#fff" : "#000";
-  return (
-    <Text
-      style={[
-        { color: textColor, fontFamily: "Jost" },
-        type === "default" ? styles.default : undefined,
-        type === "title" ? styles.title : undefined,
-        type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
-        type === "paragraph" ? styles.paragraph : undefined,
-        type === "subtitle" ? styles.subtitle : undefined,
-        type === "link" ? styles.link : undefined,
-        style,
-      ]}
-      {...rest}
-    />
-  );
+    const textColor = colorVariant === 'white' ? '#fff' : '#000';
+    return (
+        <Text
+            style={[
+                { color: textColor, fontFamily: 'Jost' },
+                type === 'default' ? styles.default : undefined,
+                type === 'title' ? styles.title : undefined,
+                type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
+                type === 'paragraph' ? styles.paragraph : undefined,
+                type === 'subtitle' ? styles.subtitle : undefined,
+                type === 'link' ? styles.link : undefined,
+                style,
+            ]}
+            {...rest}
+        />
+    );
 }
 
 const styles = StyleSheet.create({
-  default: {
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  defaultSemiBold: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: "600",
-  },
-  title: {
-    fontSize: 20,
-    lineHeight: 32,
-  },
-  subtitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  paragraph: {
-    fontSize: 15,
-  },
-  link: {
-    lineHeight: 30,
-    fontSize: 16,
-  },
+    default: {
+        fontSize: 16,
+        lineHeight: 24,
+    },
+    defaultSemiBold: {
+        fontSize: 16,
+        lineHeight: 24,
+        fontWeight: '600',
+    },
+    title: {
+        fontSize: 20,
+        lineHeight: 32,
+    },
+    subtitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    paragraph: {
+        fontSize: 15,
+    },
+    link: {
+        lineHeight: 30,
+        fontSize: 16,
+    },
 });

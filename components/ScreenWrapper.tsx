@@ -1,23 +1,23 @@
-import React from "react";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import React from 'react';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 interface ScreenWrapperProps {
-  children: React.ReactNode;
-  style?: StyleProp<ViewStyle>;
+    children: React.ReactNode;
+    style?: StyleProp<ViewStyle>;
 }
 
 export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
-  children,
-  style,
+    children,
+    style,
 }) => {
-  return <View style={[styles.wrapper, style]}>{children}</View>;
+    return <View style={[styles.wrapper, style]}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    padding: 25,
-    gap: 20,
-    backgroundColor: "#fff",
-  },
+    wrapper: {
+        flex: 1,
+        padding: 25,
+        gap: 20,
+        backgroundColor: '#fff',
+    },
 });
