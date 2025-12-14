@@ -1,4 +1,4 @@
-export interface ClinicVisitHistory {
+export interface ClinicVisitHistoryInterface {
   id: number;
   studentName: string;
   lrn: number;

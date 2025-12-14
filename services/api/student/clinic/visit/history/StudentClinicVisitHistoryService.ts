@@ -1,5 +1,5 @@
-import { ClinicVisitHistory } from "@/types/ClinicVisitHistoryInterface";
-import { authFetch } from "@/services/authenticatedUserFetch";
+import { ClinicVisitHistoryInterface } from "@/types/student/clinic/visit/history/StudentClinicVisitHistoryInterface";
+import { authFetch } from "@/services/api/utilities/AuthenticatedUserUtility";
 import { HOMEPAGE_API_ENDPOINTS } from "@/constants/api";
 
 /**
@@ -8,11 +8,13 @@ import { HOMEPAGE_API_ENDPOINTS } from "@/constants/api";
  * @param lrn - The student's unique Learner Reference Number
  * @returns A promise resolving to an array of ClinicVisitHistory
  */
-export async function fetchClinicVisitHistory(
+export async function fetchStudentClinicVisitHistoryByLRN(
   lrn: number,
-): Promise<ClinicVisitHistory[]> {
+): Promise<ClinicVisitHistoryInterface[]> {
   const url =
-    HOMEPAGE_API_ENDPOINTS.GET_STUDENT_CLINIC_VISIT_HISTORY_ENDPOINT(lrn);
+    HOMEPAGE_API_ENDPOINTS.GET_STUDENT_CLINIC_VISIT_HISTORY_BY_LRN_ENDPOINT(
+      lrn,
+    );
 
   try {
     const response = await authFetch(url);
@@ -23,7 +25,7 @@ export async function fetchClinicVisitHistory(
       );
     }
 
-    const data: ClinicVisitHistory[] = await response.json();
+    const data: ClinicVisitHistoryInterface[] = await response.json();
     return data;
   } catch (error) {
     console.error("Error fetching clinic visit history:", error);

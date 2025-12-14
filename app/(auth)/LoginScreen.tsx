@@ -1,6 +1,6 @@
 import { Button } from "@/components/Button";
 import { ThemedText } from "@/components/ThemedText";
-import { login } from "@/services/auth/auth";
+import { login } from "@/services/api/auth/user/login/LoginService";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Alert, Image, ImageBackground, TextInput, View } from "react-native";

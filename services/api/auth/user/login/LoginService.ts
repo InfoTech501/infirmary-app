@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LOGIN_ENDPOINT } from "../../constants/api";
+import { LOGIN_ENDPOINT } from "../../../../../constants/api";
 
 const JWT_TOKEN_HEADER = "Jwt-Token";
 

@@ -1,4 +1,4 @@
-import { logout } from "@/services/auth/Logout";
+import { logout } from "@/services/api/auth/user/logout/LogoutService";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";

@@ -1,14 +1,16 @@
 import { Card } from "@/components/Card";
 import { ScreenWrapper } from "@/components/ScreenWrapper";
 import { ThemedText } from "@/components/ThemedText";
-import { fetchClinicVisitHistory } from "@/services/api/homepage/history/StudentClinicVisitHistory";
-import { ClinicVisitHistory } from "@/types/ClinicVisitHistoryInterface";
+import { fetchStudentClinicVisitHistoryByLRN } from "@/services/api/student/clinic/visit/history/StudentClinicVisitHistoryService";
+import { ClinicVisitHistoryInterface } from "@/types/student/clinic/visit/history/StudentClinicVisitHistoryInterface";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 export default function HomepageScreen() {
-  const [clinicVisits, setClinicVisits] = useState<ClinicVisitHistory[]>([]);
+  const [clinicVisits, setClinicVisits] = useState<
+    ClinicVisitHistoryInterface[]
+  >([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,7 +19,7 @@ export default function HomepageScreen() {
   useEffect(() => {
     const loadClinicVisits = async () => {
       try {
-        const visits = await fetchClinicVisitHistory(lrn);
+        const visits = await fetchStudentClinicVisitHistoryByLRN(lrn);
         setClinicVisits(visits);
       } catch (err) {
         setError("Failed to load clinic visit history" + err);
