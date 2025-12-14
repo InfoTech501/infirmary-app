@@ -1,5 +1,5 @@
-import { Student } from "../student/StudentInterface";
+import { Student } from '../student/StudentInterface';
 
 export interface Authenticated {
-  student: Student;
+    student: Student;
 }
