@@ -1,11 +1,34 @@
 import { Card } from "@/components/Card";
 import { ScreenWrapper } from "@/components/ScreenWrapper";
 import { ThemedText } from "@/components/ThemedText";
+import { fetchClinicVisitHistory } from "@/services/api/homepage/history/StudentClinicVisitHistory";
+import { ClinicVisitHistory } from "@/types/ClinicVisitHistoryInterface";
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 export default function HomepageScreen() {
+  const [clinicVisits, setClinicVisits] = useState<ClinicVisitHistory[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const lrn = 109152648294;
+
+  useEffect(() => {
+    const loadClinicVisits = async () => {
+      try {
+        const visits = await fetchClinicVisitHistory(lrn);
+        setClinicVisits(visits);
+      } catch (err) {
+        setError("Failed to load clinic visit history" + err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadClinicVisits();
+  }, []);
+
   return (
     <ScreenWrapper>
       <View style={styles.header}>
@@ -46,7 +69,29 @@ export default function HomepageScreen() {
         title="Clinic Visits"
         icon={<Ionicons name="time-outline" size={44} color="#265b34ff" />}
       >
-        <ThemedText type="paragraph">Recent:</ThemedText>
+        {loading ? (
+          <ActivityIndicator />
+        ) : error ? (
+          <ThemedText type="paragraph" style={{ color: "red" }}>
+            {error}
+          </ThemedText>
+        ) : clinicVisits.length === 0 ? (
+          <ThemedText type="paragraph">No visit history available.</ThemedText>
+        ) : (
+          <>
+            <ThemedText type="paragraph">Recent:</ThemedText>
+            {clinicVisits
+              .slice(-3)
+              .reverse()
+              .map((visit) => (
+                <View key={visit.id} style={{ marginBottom: 8 }}>
+                  <ThemedText type="paragraph">
+                    • {visit.visitDate.split("T")[0]} - {visit.ailment}
+                  </ThemedText>
+                </View>
+              ))}
+          </>
+        )}
       </Card>
     </ScreenWrapper>
   );

@@ -5,7 +5,7 @@ const JWT_TOKEN_HEADER = "Jwt-Token";
 
 export async function login(
   username: string,
-  password: string
+  password: string,
 ): Promise<{ success: boolean; message?: string }> {
   try {
     const response = await fetch(LOGIN_ENDPOINT, {
@@ -36,14 +36,5 @@ export async function login(
   } catch (error) {
     console.log("Network error", error);
     return { success: false, message: "Network error. Please try again." };
-  }
-}
-
-export async function logout(): Promise<void> {
-  try {
-    await AsyncStorage.removeItem("authToken");
-    console.log("Logout successful");
-  } catch (error) {
-    console.error("Error during logout:", error);
   }
 }

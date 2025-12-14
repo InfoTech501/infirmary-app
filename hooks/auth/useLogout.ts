@@ -1,4 +1,4 @@
-import { logout } from "@/services/auth/auth";
+import { logout } from "@/services/auth/Logout";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
@@ -26,14 +26,17 @@ export const useAuth = () => {
               router.replace("/(auth)/LoginScreen");
             } catch (error) {
               console.error("Logout error:", error);
-              Alert.alert("Error", "Failed to log out. Please try again.");
+              Alert.alert(
+                "Error",
+                "Failed to log out. Please try again." + error,
+              );
             } finally {
               setIsLoggingOut(false);
             }
           },
         },
       ],
-      { cancelable: true }
+      { cancelable: true },
     );
   };
 
