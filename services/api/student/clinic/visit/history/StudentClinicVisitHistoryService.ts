@@ -25,7 +25,10 @@ export async function fetchStudentClinicVisitHistoryByLRN(
             );
         }
 
-        const data: ClinicVisitHistoryInterface[] = await response.json();
+        const jsonData = await response.json();
+        const data: ClinicVisitHistoryInterface[] = Array.isArray(jsonData)
+            ? jsonData
+            : [];
         return data;
     } catch (error) {
         console.error('Error fetching clinic visit history:', error);

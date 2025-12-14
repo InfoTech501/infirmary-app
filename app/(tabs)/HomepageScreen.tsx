@@ -1,8 +1,10 @@
 import { Card } from '@/components/Card';
 import { ScreenWrapper } from '@/components/ScreenWrapper';
 import { ThemedText } from '@/components/ThemedText';
+import { fetchCurrentUser } from '@/services/api/auth/user/current/CurrentUserService';
 import { fetchStudentClinicVisitHistoryByLRN } from '@/services/api/student/clinic/visit/history/StudentClinicVisitHistoryService';
 import { ClinicVisitHistoryInterface } from '@/types/student/clinic/visit/history/StudentClinicVisitHistoryInterface';
+import { Authenticated } from '@/types/user/AuthenticatedInterface';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
@@ -11,25 +13,66 @@ export default function HomepageScreen() {
     const [clinicVisits, setClinicVisits] = useState<
         ClinicVisitHistoryInterface[]
     >([]);
+    const [currentUser, setCurrentUser] = useState<Authenticated | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    const lrn = 109152648294;
-
     useEffect(() => {
-        const loadClinicVisits = async () => {
+        const loadData = async () => {
             try {
-                const visits = await fetchStudentClinicVisitHistoryByLRN(lrn);
-                setClinicVisits(visits);
-            } catch (err) {
-                setError('Failed to load clinic visit history' + err);
+                setLoading(true);
+                setError(null);
+
+                const user = await fetchCurrentUser();
+                setCurrentUser(user);
+
+                if (user.student) {
+                    const visits = await fetchStudentClinicVisitHistoryByLRN(
+                        user.student.lrn
+                    );
+                    setClinicVisits(visits);
+                }
+            } catch (err: any) {
+                setError(`Failed to load data: ${err.message || err}`);
             } finally {
                 setLoading(false);
             }
         };
 
-        loadClinicVisits();
+        loadData();
     }, []);
+
+    if (loading) {
+        return (
+            <ScreenWrapper>
+                <ActivityIndicator
+                    size="large"
+                    style={{ flex: 1, justifyContent: 'center' }}
+                />
+            </ScreenWrapper>
+        );
+    }
+
+    if (error || !currentUser?.student) {
+        return (
+            <ScreenWrapper>
+                <ThemedText
+                    type="paragraph"
+                    style={{ color: 'red', textAlign: 'center' }}
+                >
+                    {error ||
+                        'Unable to load user profile. Please log in again.'}
+                </ThemedText>
+            </ScreenWrapper>
+        );
+    }
+
+    const student = currentUser.student;
+    const person = student.person;
+    const section = student.section;
+    const fullName =
+        `${person.firstName} ${person.middleName || ''} ${person.lastName}`.trim();
+    const gradeSection = `${section.gradeLevel} - ${section.section}`;
 
     return (
         <ScreenWrapper>
@@ -40,8 +83,8 @@ export default function HomepageScreen() {
                 >
                     Welcome to your Personal Healthcare Profile
                 </ThemedText>
-                <ThemedText type="paragraph">John Peter Pan</ThemedText>
-                <ThemedText type="paragraph">Grade 12 - Gumamela</ThemedText>
+                <ThemedText type="paragraph">{fullName}</ThemedText>
+                <ThemedText type="paragraph">{gradeSection}</ThemedText>
             </View>
 
             <Card
@@ -54,15 +97,24 @@ export default function HomepageScreen() {
                     />
                 }
             >
-                <ThemedText type="paragraph">0123456789</ThemedText>
-                <ThemedText type="paragraph">Male</ThemedText>
-                <ThemedText type="paragraph">Age</ThemedText>
-                <ThemedText type="paragraph">Birthday</ThemedText>
-                <ThemedText type="paragraph">Tagaytay City</ThemedText>
-                <ThemedText type="paragraph">john.peter@example.com</ThemedText>
+                <ThemedText type="paragraph">LRN: {student.lrn}</ThemedText>
+                <ThemedText type="paragraph">
+                    Contact: {person.contactNumber || 'Not provided'}
+                </ThemedText>
+                <ThemedText type="paragraph">
+                    Gender: {person.gender}
+                </ThemedText>
+                <ThemedText type="paragraph">Age: {person.age}</ThemedText>
+                <ThemedText type="paragraph">
+                    Birthday: {new Date(person.birthdate).toLocaleDateString()}
+                </ThemedText>
+                <ThemedText type="paragraph">
+                    Address: {person.address || 'Not provided'}
+                </ThemedText>
+                <ThemedText type="paragraph">Email: {person.email}</ThemedText>
             </Card>
 
-            <Card
+            {/*<Card
                 title="Health Information"
                 icon={
                     <Ionicons
@@ -71,10 +123,7 @@ export default function HomepageScreen() {
                         color="#265b34ff"
                     />
                 }
-            >
-                <ThemedText type="paragraph">Allergies</ThemedText>
-                <ThemedText type="paragraph">Others</ThemedText>
-            </Card>
+            ></Card>*/}
 
             <Card
                 title="Clinic Visits"
