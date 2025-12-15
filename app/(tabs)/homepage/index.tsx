@@ -9,7 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
-export default function HomepageScreen() {
+export default function Homepage() {
     const [clinicVisits, setClinicVisits] = useState<
         ClinicVisitHistoryInterface[]
     >([]);

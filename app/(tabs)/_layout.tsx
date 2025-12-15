@@ -28,20 +28,17 @@ export default function TabLayout() {
             }}
         >
             <Tabs.Screen
-                name="HomepageScreen"
+                name="homepage/index"
                 options={{
                     title: 'Homepage',
                     tabBarIcon: ({ color }) => (
-                        <Ionicons
-                            name="medical-outline"
-                            size={20}
-                            color={color}
-                        />
+                        <Ionicons name="home-outline" size={20} color={color} />
                     ),
                 }}
             />
+
             <Tabs.Screen
-                name="QRParentsPortalScreen"
+                name="parentsPortal/index"
                 options={{
                     title: "Parent's Portal",
                     tabBarIcon: ({ color }) => (
@@ -53,21 +50,9 @@ export default function TabLayout() {
                     ),
                 }}
             />
+
             <Tabs.Screen
-                name="NotificationsScreen"
-                options={{
-                    title: 'Notifications',
-                    tabBarIcon: ({ color }) => (
-                        <Ionicons
-                            name="notifications-outline"
-                            size={20}
-                            color={color}
-                        />
-                    ),
-                }}
-            />
-            <Tabs.Screen
-                name="AccountScreen"
+                name="account/index"
                 options={{
                     title: 'My Account',
                     tabBarIcon: ({ color }) => (

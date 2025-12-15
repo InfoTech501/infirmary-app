@@ -2,7 +2,7 @@ import Header from '@/components/Header';
 import { ScreenWrapper } from '@/components/ScreenWrapper';
 import React from 'react';
 
-export default function QRParentsPortalScreen() {
+export default function QRParentsPortal() {
     return (
         <ScreenWrapper>
             <Header title="PARENT'S PORTAL" />

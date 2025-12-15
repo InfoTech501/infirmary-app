@@ -8,14 +8,9 @@ module.exports = defineConfig([
         settings: {
             'import/resolver': {
                 typescript: {
-                    alwaysTryTypes: true,
                     project: './tsconfig.json',
                 },
             },
         },
-    },
-    require('eslint-config-prettier'),
-    {
-        ignores: ['dist/*'],
     },
 ]);

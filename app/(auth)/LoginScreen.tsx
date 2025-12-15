@@ -14,7 +14,7 @@ const LoginScreen = () => {
     const handleLogin = async () => {
         const result = await login(username, password);
         if (result.success) {
-            router.replace('/(tabs)/HomepageScreen');
+            router.replace('/homepage');
         } else {
             Alert.alert(
                 'Login failed',
