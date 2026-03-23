@@ -14,7 +14,7 @@ export const GET_CURRENT_USER_ENDPOINT = `${API_BASE_URL}/user/current-user`;
  */
 export const HOMEPAGE_API_ENDPOINTS = {
     GET_STUDENT_HEALTH_PROFILE_BY_LRN_ENDPOINT: (lrn: number) =>
-        `${API_BASE_URL}/student/clinic/visit?lrn=${lrn}`,
-    GET_STUDENT_CLINIC_VISIT_HISTORY_BY_LRN_ENDPOINT: (lrn: number) =>
         `${API_BASE_URL}/student/health-profile?lrn=${lrn}`,
+    GET_STUDENT_CLINIC_VISIT_HISTORY_BY_LRN_ENDPOINT: (lrn: number) =>
+        `${API_BASE_URL}/student/clinic/visit?lrn=${lrn}`,
 };
