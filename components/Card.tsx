@@ -27,27 +27,76 @@ export const Card: React.FC<CardProps> = ({
     icon,
 }) => {
     const Container = onPress ? TouchableOpacity : View;
+    const hasHeaderText = title || subtitle;
 
     return (
         <Container onPress={onPress} style={[styles.card, style]}>
-            {icon && <View style={styles.iconContainer}>{icon}</View>}
-            {title && <ThemedText type="title">{title}</ThemedText>}
-            {subtitle && <ThemedText type="paragraph">{subtitle}</ThemedText>}
-            {children}
+            {(hasHeaderText || icon) && (
+                <View style={styles.header}>
+                    {hasHeaderText && (
+                        <View style={styles.headerText}>
+                            {title && (
+                                <ThemedText type="title">{title}</ThemedText>
+                            )}
+                            {subtitle && (
+                                <ThemedText
+                                    type="paragraph"
+                                    style={styles.subtitle}
+                                >
+                                    {subtitle}
+                                </ThemedText>
+                            )}
+                        </View>
+                    )}
+                    {icon && (
+                        <View
+                            style={[
+                                styles.iconContainer,
+                                !hasHeaderText && styles.iconOnly,
+                            ]}
+                        >
+                            {icon}
+                        </View>
+                    )}
+                </View>
+            )}
+
+            {children && (
+                <View style={hasHeaderText && styles.bodyDivider}>
+                    {children}
+                </View>
+            )}
         </Container>
     );
 };
-
 const styles = StyleSheet.create({
     card: {
         backgroundColor: '#CAF0C1',
         borderRadius: 11,
         padding: 14,
-        position: 'relative',
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+    },
+    headerText: {
+        flex: 1,
+        gap: 2,
+    },
+    subtitle: {
+        opacity: 0.65,
     },
     iconContainer: {
-        position: 'absolute',
-        top: 12,
-        right: 12,
+        marginLeft: 8,
+    },
+    iconOnly: {
+        marginLeft: 'auto',
+    },
+    bodyDivider: {
+        marginTop: 12,
+        paddingTop: 12,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        borderTopColor: 'rgba(0,0,0,0.12)',
     },
 });

@@ -88,7 +88,6 @@ export default function Homepage() {
             </View>
 
             <Card
-                title="Basic Information"
                 icon={
                     <Ionicons
                         name="information-circle-outline"
@@ -126,7 +125,7 @@ export default function Homepage() {
             ></Card>*/}
 
             <Card
-                title="Clinic Visits"
+                title="STUDENT CLINIC VISITS"
                 icon={
                     <Ionicons name="time-outline" size={44} color="#265b34ff" />
                 }
@@ -143,18 +142,43 @@ export default function Homepage() {
                     </ThemedText>
                 ) : (
                     <>
-                        <ThemedText type="paragraph">Recent:</ThemedText>
                         {clinicVisits
                             .slice(-3)
                             .reverse()
-                            .map((visit) => (
+                            .map((visit, index, arr) => (
                                 <View
                                     key={visit.id}
-                                    style={{ marginBottom: 8 }}
+                                    style={[
+                                        styles.visitItem,
+                                        index < arr.length - 1 &&
+                                            styles.visitDivider,
+                                    ]}
                                 >
                                     <ThemedText type="paragraph">
-                                        • {visit.visitDate.split('T')[0]} -{' '}
-                                        {visit.ailment}
+                                        Ailment: {visit.ailment}
+                                    </ThemedText>
+                                    <ThemedText type="paragraph">
+                                        Symptoms: {visit.symptoms}
+                                    </ThemedText>
+                                    <ThemedText type="paragraph">
+                                        Temperature: {visit.temperatureReadings}
+                                    </ThemedText>
+                                    <ThemedText type="paragraph">
+                                        Blood Pressure: {visit.bloodPressure}
+                                    </ThemedText>
+                                    <ThemedText type="paragraph">
+                                        Pulse Rate: {visit.pulseRate}
+                                    </ThemedText>
+                                    <ThemedText type="paragraph">
+                                        Respiratory Rate:{' '}
+                                        {visit.respiratoryRate}
+                                    </ThemedText>
+                                    <ThemedText type="paragraph">
+                                        Nurse in-charge: {visit.nurseInCharge}
+                                    </ThemedText>
+                                    <ThemedText type="paragraph">
+                                        Date Visited:{' '}
+                                        {visit.visitDate.split('T')[0]}
                                     </ThemedText>
                                 </View>
                             ))}
@@ -168,5 +192,13 @@ export default function Homepage() {
 const styles = StyleSheet.create({
     header: {
         marginTop: 70,
+    },
+    visitItem: {
+        gap: 4,
+        paddingVertical: 8,
+    },
+    visitDivider: {
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: 'rgba(0,0,0,0.12)',
     },
 });
