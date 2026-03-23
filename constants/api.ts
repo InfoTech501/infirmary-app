@@ -18,3 +18,5 @@ export const HOMEPAGE_API_ENDPOINTS = {
     GET_STUDENT_CLINIC_VISIT_HISTORY_BY_LRN_ENDPOINT: (lrn: number) =>
         `${API_BASE_URL}/student/clinic/visit?lrn=${lrn}`,
 };
+
+export const GET_GENERATED_QR_CODE = `${API_BASE_URL}/student/generate-qr`;
