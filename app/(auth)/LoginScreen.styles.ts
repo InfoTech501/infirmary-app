@@ -39,6 +39,10 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         paddingHorizontal: 8,
     },
+
+    forgetPassword: {
+        textDecorationLine: "underline",
+    }
 });
 
 export default styles;

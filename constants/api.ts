@@ -20,3 +20,10 @@ export const HOMEPAGE_API_ENDPOINTS = {
 };
 
 export const GET_GENERATED_QR_CODE = `${API_BASE_URL}/student/generate-qr`;
+
+export const FORGET_PASSWORD_ENDPOINT =`${API_BASE_URL}/user/forget-password`;
+
+
+ 
+    
+
