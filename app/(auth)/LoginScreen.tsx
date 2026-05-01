@@ -12,7 +12,6 @@ const LoginScreen = () => {
     const [username, setLrn] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading,setIsLoading] = useState(false);
-    const [maxAttempts , setMaxAttempts] = useState(false);
     const { displayForgetPasswordConfirmation } = useConfirmation();
     const router = useRouter();
 
@@ -31,10 +30,15 @@ const LoginScreen = () => {
    const handleForgetPassword = async () => {
     try {
         setIsLoading(true);
-        const result = await forgetPassword(username);
+        const result = await forgetPassword(username.trim());
 
         if (result.message?.includes("TO MANY REQUEST")) {
             Alert.alert("Too Many Attempts", "Please try again later.");
+            return;
+        }
+
+        if (result.message?.includes("FORBIDDEN")) {
+            Alert.alert("Change Password Failed", "Account not registered.");
             return;
         }
 
