@@ -37,11 +37,6 @@ const LoginScreen = () => {
             return;
         }
 
-        if (result.message?.includes("FORBIDDEN")) {
-            Alert.alert("Change Password Failed", "Account not registered.");
-            return;
-        }
-
         if (result.success) {
             Alert.alert("Check your email",
                 result.message || "Check your email for the password reset link!"
