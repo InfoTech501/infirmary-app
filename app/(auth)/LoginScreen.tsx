@@ -3,7 +3,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { login } from '@/services/api/auth/user/login/LoginService';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, Image, ImageBackground, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingViewBase, Platform, KeyboardAvoidingView } from 'react-native';
+import { Alert, Image, ImageBackground, Text, TextInput, TouchableOpacity, View, Platform, KeyboardAvoidingView } from 'react-native';
 import styles from './LoginScreen.styles';
 import { useConfirmation } from '@/hooks/auth/useConfirmation';
 import forgetPassword from '@/services/api/auth/user/password/ForgetPasswordService';
