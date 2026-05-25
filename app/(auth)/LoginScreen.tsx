@@ -3,7 +3,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { login } from '@/services/api/auth/user/login/LoginService';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, Image, ImageBackground, Text, TextInput, TouchableOpacity, View  } from 'react-native';
+import { Alert, Image, ImageBackground, Text, TextInput, TouchableOpacity, View, Platform, KeyboardAvoidingView } from 'react-native';
 import styles from './LoginScreen.styles';
 import { useConfirmation } from '@/hooks/auth/useConfirmation';
 import forgetPassword from '@/services/api/auth/user/password/ForgetPasswordService';
@@ -63,11 +63,15 @@ const confirmForgetPassword = () => {
 };
 
     return (
+        <KeyboardAvoidingView
+            behavior= { Platform.OS === 'ios' ? 'padding' : undefined}
+            style= {{ flex: 1 }}
+        >
         <ImageBackground
             source={require('../../assets/images/loginscreen-bg.jpg')}
             style={styles.background}
             resizeMode="cover"
-        >
+        >   
             <View style={styles.container}>
                 <Image
                     source={require('../../assets/images/main-logo.png')}
@@ -99,6 +103,7 @@ const confirmForgetPassword = () => {
                 </TouchableOpacity>
             </View>
         </ImageBackground>
+    </KeyboardAvoidingView>
     );
 };
 
