@@ -8,6 +8,14 @@ A mobile application built for TCSNHS to manage their school infirmary operation
 - View profile details (personal info, section, contact info)
 - Reset password via email
 - Secure logout
+ 
+| Login | Home |
+|:---:|:---:|
+| ![Login Screen](./assets/images/login-infirmary.png) | ![Home](./assets/images/home.png) |
+ 
+| Profile | Parents Portal |
+|:---:|:---:|
+| ![Profile Screen](./assets/images/profile.png) | ![Parents Portal](./assets/images/qr.png) |
 
 ## Tech Stack
 
@@ -23,6 +31,7 @@ A mobile application built for TCSNHS to manage their school infirmary operation
 | Jake Viado | Software Developer & DevOps Engineer | [@jakeeviado](https://github.com/jakeeviado) |
 | Neonael Nazareno | Software Developer | [@NNeonael](https://github.com/NNeonael) |
 | Noah Flores | Quality Assurance Tester | [@Noahflores](https://github.com/Noaflores) |
+| Gerome Liwanag | UI/UX | [@GeromeLiwanag](https://github.com/GeromeLiwanag) |
 
 
 ## Contributing

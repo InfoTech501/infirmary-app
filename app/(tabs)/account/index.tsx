@@ -4,12 +4,13 @@ import Header from '@/components/Header';
 import { ScreenWrapper } from '@/components/ScreenWrapper';
 import { ThemedText } from '@/components/ThemedText';
 import { useConfirmation } from '@/hooks/auth/useConfirmation';
-import { useAuth } from '@/hooks/auth/useLogout';
+import { useAuth } from '@/hooks/auth/useAuth';
 import { fetchCurrentUser } from '@/services/api/auth/user/current/CurrentUserService';
 import forgetPassword from '@/services/api/auth/user/password/ForgetPasswordService';
+import { showAlert } from '@/utils/alerts';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 interface ProfileInfo {
     fullName: string;
@@ -98,10 +99,7 @@ export default function Account() {
 
     const handleResetPassword = async () => {
         if (!profile?.username) {
-            Alert.alert(
-                'Unable to send reset link',
-                'Username does not exist.'
-            );
+            showAlert('Unable to send reset link', 'Username does not exist.');
             return;
         }
 
@@ -110,12 +108,12 @@ export default function Account() {
             const result = await forgetPassword(profile.username);
 
             if (result.message?.includes('TO MANY REQUEST')) {
-                Alert.alert('Too Many Attempts', 'Please try again later.');
+                showAlert('Too Many Attempts', 'Please try again later.');
                 return;
             }
 
             if (result.success) {
-                Alert.alert(
+                showAlert(
                     'Check your email',
                     result.message ||
                         'Check your email for the password reset link.'
@@ -123,7 +121,7 @@ export default function Account() {
                 return;
             }
 
-            Alert.alert(
+            showAlert(
                 'Unable to send reset link',
                 result.message || 'Failed to send password reset email.'
             );
@@ -136,7 +134,7 @@ export default function Account() {
 
     const confirmResetPassword = () => {
         if (userLoadError) {
-            Alert.alert('Unable to send reset link', userLoadError);
+            showAlert('Unable to send reset link', userLoadError);
             return;
         }
 
