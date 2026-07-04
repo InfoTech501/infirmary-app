@@ -87,7 +87,7 @@ export default function Homepage() {
                 <ThemedText type="paragraph">{gradeSection}</ThemedText>
             </View>
 
-            <Card
+            {/*<Card
                 icon={
                     <Ionicons
                         name="information-circle-outline"
@@ -111,7 +111,7 @@ export default function Homepage() {
                     Address: {person.address || 'Not provided'}
                 </ThemedText>
                 <ThemedText type="paragraph">Email: {person.email}</ThemedText>
-            </Card>
+            </Card>*/}
 
             {/*<Card
                 title="Health Information"
