@@ -39,6 +39,33 @@ function DetailRow({ label, value }: { label: string; value: string }) {
     );
 }
 
+interface ProfileInfo {
+    fullName: string;
+    username: string;
+    email: string;
+    lrn: string | number;
+    gradeLevel: string;
+    strand: string;
+    section: string;
+    age: number | null;
+    gender: string | null;
+    contactNumber: string | null;
+    address: string | null;
+}
+
+function DetailRow({ label, value }: { label: string; value: string }) {
+    return (
+        <View style={styles.detailRow}>
+            <ThemedText type="paragraph" style={styles.detailLabel}>
+                {label}
+            </ThemedText>
+            <ThemedText type="paragraph" style={styles.detailValue}>
+                {value}
+            </ThemedText>
+        </View>
+    );
+}
+
 export default function Account() {
     const { handleLogout, isLoggingOut } = useAuth();
     const { displayResetPasswordConfirmation } = useConfirmation();
