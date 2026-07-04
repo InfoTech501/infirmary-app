@@ -11,10 +11,37 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 
+interface ProfileInfo {
+    fullName: string;
+    username: string;
+    email: string;
+    lrn: string | number;
+    gradeLevel: string;
+    strand: string;
+    section: string;
+    age: number | null;
+    gender: string | null;
+    contactNumber: string | null;
+    address: string | null;
+}
+
+function DetailRow({ label, value }: { label: string; value: string }) {
+    return (
+        <View style={styles.detailRow}>
+            <ThemedText type="paragraph" style={styles.detailLabel}>
+                {label}
+            </ThemedText>
+            <ThemedText type="paragraph" style={styles.detailValue}>
+                {value}
+            </ThemedText>
+        </View>
+    );
+}
+
 export default function Account() {
     const { handleLogout, isLoggingOut } = useAuth();
     const { displayResetPasswordConfirmation } = useConfirmation();
-    const [username, setUsername] = useState<string | null>(null);
+    const [profile, setProfile] = useState<ProfileInfo | null>(null);
     const [isLoadingUser, setIsLoadingUser] = useState(true);
     const [isSendingReset, setIsSendingReset] = useState(false);
     const [userLoadError, setUserLoadError] = useState<string | null>(null);
@@ -25,37 +52,65 @@ export default function Account() {
                 setIsLoadingUser(true);
 
                 const user = await fetchCurrentUser();
-                setUsername(user.student?.user?.username || null);
-                
-                setUserLoadError(null);
+                const student = user.student;
+                const person = student?.person;
+                const account = student?.user;
+                const section = student?.section;
 
+                if (person && account) {
+                    const fullName = [
+                        person.firstName,
+                        person.middleName,
+                        person.lastName,
+                    ]
+                        .filter(Boolean)
+                        .join(' ');
+
+                    setProfile({
+                        fullName,
+                        username: account.username,
+                        email: person.email,
+                        lrn: student.lrn,
+                        gradeLevel: section?.gradeLevel || '—',
+                        strand: section?.strand || '—',
+                        section: section?.section || '—',
+                        age: person.age,
+                        gender: person.gender,
+                        contactNumber: person.contactNumber,
+                        address: person.address,
+                    });
+                } else {
+                    setProfile(null);
+                }
+
+                setUserLoadError(null);
             } catch (error: any) {
-                setUserLoadError(`Failed to load account details : ' ${error.message | error}`);
+                setUserLoadError(
+                    `Failed to load account details: ${error.message || error}`
+                );
             } finally {
                 setIsLoadingUser(false);
             }
         };
 
         loadCurrentUser();
-
     }, []);
 
     const handleResetPassword = async () => {
-        
-        if (!username) {
+        if (!profile?.username) {
             Alert.alert(
                 'Unable to send reset link',
-                'Username does not exist .'
+                'Username does not exist.'
             );
             return;
         }
 
         try {
             setIsSendingReset(true);
-            const result = await forgetPassword(username);
+            const result = await forgetPassword(profile.username);
 
-            if(result.message?.includes("TO MANY REQUEST")) {
-                Alert.alert("Too Many Attempts" , "Please try again later.")
+            if (result.message?.includes('TO MANY REQUEST')) {
+                Alert.alert('Too Many Attempts', 'Please try again later.');
                 return;
             }
 
@@ -70,11 +125,10 @@ export default function Account() {
 
             Alert.alert(
                 'Unable to send reset link',
-                 result.message || 'Failed to send password reset email.'
+                result.message || 'Failed to send password reset email.'
             );
 
             return;
-
         } finally {
             setIsSendingReset(false);
         }
@@ -103,11 +157,50 @@ export default function Account() {
                         />
                     }
                 >
-                    <ThemedText type="title">John Peter Pan</ThemedText>
-                    <ThemedText type="paragraph">username</ThemedText>
-                    <ThemedText type="paragraph">
-                        john.peter@example.com
+                    <ThemedText type="title">
+                        {isLoadingUser
+                            ? 'Loading...'
+                            : profile?.fullName || 'Unknown User'}
                     </ThemedText>
+                    <ThemedText type="paragraph">
+                        {isLoadingUser ? '' : profile?.username || '—'}
+                    </ThemedText>
+                    <ThemedText type="paragraph">
+                        {isLoadingUser ? '' : profile?.email || '—'}
+                    </ThemedText>
+
+                    {!isLoadingUser && profile && (
+                        <View style={styles.detailsList}>
+                            <DetailRow
+                                label="LRN"
+                                value={String(profile.lrn)}
+                            />
+                            <DetailRow
+                                label="Grade & Section"
+                                value={`${profile.gradeLevel} - ${profile.strand} (${profile.section})`}
+                            />
+                            <DetailRow
+                                label="Age"
+                                value={
+                                    profile.age != null
+                                        ? String(profile.age)
+                                        : 'Not provided'
+                                }
+                            />
+                            <DetailRow
+                                label="Gender"
+                                value={profile.gender || 'Not provided'}
+                            />
+                            <DetailRow
+                                label="Contact Number"
+                                value={profile.contactNumber || 'Not provided'}
+                            />
+                            <DetailRow
+                                label="Address"
+                                value={profile.address || 'Not provided'}
+                            />
+                        </View>
+                    )}
                 </Card>
 
                 <View style={styles.bottomSection}>
@@ -116,7 +209,11 @@ export default function Account() {
                         title="RESET PASSWORD"
                         onPress={confirmResetPassword}
                         loading={isSendingReset}
-                        disabled={isLoadingUser || isSendingReset || !username}
+                        disabled={
+                            isLoadingUser ||
+                            isSendingReset ||
+                            !profile?.username
+                        }
                     />
 
                     <Button
@@ -143,5 +240,22 @@ const styles = StyleSheet.create({
     bottomSection: {
         gap: 10,
         paddingBottom: 20,
+    },
+    detailsList: {
+        marginTop: 12,
+        gap: 6,
+        width: '100%',
+    },
+    detailRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    detailLabel: {
+        opacity: 0.6,
+    },
+    detailValue: {
+        textAlign: 'right',
+        flexShrink: 1,
+        marginLeft: 12,
     },
 });

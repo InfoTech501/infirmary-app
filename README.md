@@ -1,50 +1,34 @@
-# Welcome to your Expo app 👋
+# TCSNHS Infirmary Mobile Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile application built for TCSNHS to manage their school infirmary operations — allowing students to view their profile, manage their account, and interact with infirmary records and services.
 
-## Get started
+## Features
 
-1. Install dependencies
+- Student login and authentication
+- View profile details (personal info, section, contact info)
+- Reset password via email
+- Secure logout
 
-    ```bash
-    npm install
-    ```
+## Tech Stack
 
-2. Start the app
+- **Framework:** React Native (Expo)
+- **Language:** TypeScript
+- **Navigation:** Expo Router
+- **Backend:** REST API (Spring Boot)
 
-    ```bash
-    npx expo start
-    ```
+## Contributors
 
-In the output, you'll find options to open the app in a
+| Name | Role | GitHub |
+|------|------|--------|
+| Jake Viado | Software Developer & DevOps Engineer | [@jakeeviado](https://github.com/jakeeviado) |
+| Neonael Nazareno | Software Developer | [@NNeonael](https://github.com/NNeonael) |
+| Noah Flores | Quality Assurance Tester | [@Noahflores](https://github.com/Noaflores) |
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Contributing
 
-## Get a fresh project
+This is a private client project. Contributions are limited to the assigned development team and also the roles and contributors listed above are assigned as part of the Rogationist College - Rogationist Computer Society, Batch 2026.
 
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Acknowledgements
+ 
+Developed with support from the Rogationist College - Rogationist Computer Society, Batch 2026.
